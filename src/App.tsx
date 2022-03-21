@@ -1,13 +1,15 @@
 import React from 'react';
+import { BrowserRouter as Router } from 'react-router-dom';
 import logo from './logo.svg';
 import Pokedex from './pokedex/Pokedex';
+import Routes from './routes';
 
 const App: React.FC = () => {
   return (
     <>
-      <Pokedex>
-
-      </Pokedex>
+      <Router>
+        <Routes />
+      </Router>
     </>
   );
 }
