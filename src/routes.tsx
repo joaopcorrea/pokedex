@@ -6,6 +6,7 @@ import {
   Link
 } from "react-router-dom";
 import Pokedex from './pokedex/Pokedex';
+import PokemonDetails from './pokemon/PokemonDetails';
 
 interface RoutesProps {
   
@@ -15,12 +16,8 @@ export const Routes: React.FC<RoutesProps> = () => {
   return (  
     <>
       <Switch>
-        <Route path="/pokemon">
-          <h1>Pokemon</h1>
-        </Route>
-        <Route path="/">
-          <Pokedex/>
-        </Route>
+        <Route path="/pokemon/:name" element={<PokemonDetails />} />
+        <Route path="/" element={<Pokedex/>} />
       </Switch>
     </>
   );

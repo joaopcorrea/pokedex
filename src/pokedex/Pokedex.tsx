@@ -19,24 +19,21 @@ import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 
+import PokedexCard from './components/PokedexCard';
+import { PokemonDetail } from '../pokemon/interfaces/PokemonDetail';
+
 interface PokedexProps {
 
 }
 
 const Pokedex: React.FC<PokedexProps> = () => {
-  const [pokemons, setPokemons] = useState<PokemonListInterface[]>([]);
+  const [pokemons, setPokemons] = useState<PokemonDetail[]>([]);
   const [selectedPokemon, setSelectedPokemon] = useState<PokemonListInterface | undefined>(undefined);
-  const [selectedPokemonDetails, setSelectedPokemonDetails] = useState<any | undefined>(undefined);
-
+  
+  
   useEffect(() => {
     listPokemons().then((response) => setPokemons(response.results));
   }, []);
-
-  useEffect(() => {
-    if (!selectedPokemon) return;
-
-    getPokemonDetails(selectedPokemon.name).then((response) => setSelectedPokemonDetails(response));
-  }, [selectedPokemon]);
 
   return (
     <div>
@@ -57,26 +54,11 @@ const Pokedex: React.FC<PokedexProps> = () => {
             {pokemons.map((pokemon) => (
               <>
                 <Grid item xs={6} lg={3}>
-                  <Card>
-                    <CardContent>
-                      <Typography variant="h5" component="h2">
-                        {pokemon.name}
-                      </Typography>
-                    </CardContent>
-                    <CardActions>
-                      <Button onClick={() => setSelectedPokemon(pokemon)} size="small">Abrir</Button>
-                    </CardActions>
-                  </Card>
+                  <PokedexCard pokemon={pokemon}/>
                 </Grid>
               </>
           ))}
           </Grid>
-
-          Pokemons:
-
-          {selectedPokemon && <h3>Pokemon selecionado: {selectedPokemon.name}</h3>}
-
-          {JSON.stringify(selectedPokemonDetails, undefined, 2)}
         </Box>
       </Container>
     </div>
